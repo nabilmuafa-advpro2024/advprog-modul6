@@ -17,3 +17,12 @@ Pada `response`, ditambahkan status string dan juga `Content-Length`. Ini kemudi
 
 ![](/assets/img/commit2.png)
 _Gambar URL yang diakses setelah_ `cargo run`
+
+## Commit 3 Reflection Notes
+
+Perlu ada pemisahan antara response yang memberikan page yang di-request dan response yang memberikan halaman error (page yang di-request tidak ada). Untuk itu, dapat dilakukan pemisahan dengan memeriksa HTTP request headers dari request yang diterima web server. Apabila path yang diminta oleh request adalah `/`, artinya yang dicoba akses adalah halaman utama dan kita dapat mengembalikan HTML `hello.html` untuk ditampilkan oleh browser. Selain itu, apabila path yang diminta oleh request adalah selain `/` (misal `/safhahdkjah` atau `/hack_nilai_siak`), maka HTML yang dikembalikan adalah `404.html`, file HTML yang sengaja dibuat sebagai tampilan yang menunjukkan bahwa request error.
+
+Kenapa refactoring diperlukan? Dari versi yang terdapat pada buku dokumentasi Rust, pada if statement terdapat repetisi yang cukup membuang-buang baris, padahal yang berubah hanya `status_line` dan path HTML `filename`. Oleh karena itu, if-else statement secara spesifik hanya dibuat untuk mengubah `status_line` dan `filename`. Setelah memeriksa request method, maka program sudah bisa menentukan `status_line` yang akan diberikan dan path file HTML mana yang akan dikembalikan sebagai response.
+
+![](/assets/img/commit3.png)
+_Gambar URL yang diakses untuk halaman tidak valid_
