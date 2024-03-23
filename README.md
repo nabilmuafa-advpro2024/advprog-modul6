@@ -26,3 +26,7 @@ Kenapa refactoring diperlukan? Dari versi yang terdapat pada buku dokumentasi Ru
 
 ![](/assets/img/commit3.png)
 _Gambar URL yang diakses untuk halaman tidak valid_
+
+## Commit 4 Reflection Notes
+
+Ketika mengakses endpoint `/sleep` kemudian `/`, kedua endpoint akan membutuhkan waktu yang lama untuk diakses. Setelah endpoint `/sleep` berhasil diakses, barulah kemudian endpoint `/` bisa diakses juga secara hampir sekaligus. Hal ini disebabkan oleh bagian kode penentuan `status_line` dan `filename`. Apabila endpoint yang diterima adalah `/sleep`, maka thread akan menjalankan instruksi `sleep()`, sama saja seolah-olah program akan di-sleep selama waktu yang diberikan pada parameternya. Karena web server saat ini single-threaded, maka request yang selanjutnya akan diproses pun perlu menunggu waktu `sleep()` tersebut selesai, baru kemudian bisa memprosesnya. Hal tersebut menjelaskan mengapa selama menunggu loading endpoint `/sleep` selesai, endpoint `/` juga perlu ditunggu untuk bisa diakses. Meskipun endpointnya berbeda, programnya tetap sama dan sedang menunggu endpoint `/sleep` selesai diakses.
