@@ -12,3 +12,8 @@ Secara garis besar, fungsi `handle_connection` akan mencetak HTTP headers dari s
 `http_request` yang telah terdefinisi akan dicetak dengan `println!()`. Format string yang dipakai adalah `{:#?}`, yaitu mencetak tiap elemen dari `http_request`. Format `#` digunakan agar setiap elemen mencetaknya per baris, meningkatkan readability.
 
 ## Commit 2 Reflection Notes
+
+Pada `response`, ditambahkan status string dan juga `Content-Length`. Ini kemudian dituliskan pada response yang isinya HTML sebelum dituliskan pada stream. Ini sebenarnya hanya menambahkan HTTP response headers ke respon HTML yang akan diberikan, yaitu status dari request dan juga panjang content. Browser tidak akan me-render bagian ini dan hanya me-render content. Akan tetapi, response headers dapat suatu saat digunakan untuk debug apabila memang diperlukan.
+
+![](/assets/img/commit2.png)
+_Gambar URL yang diakses setelah_ `cargo run`
